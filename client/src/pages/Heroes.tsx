@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { EditHero } from '../components/EditHero';
 import { heroAsync } from '../features/heroesSlice';
-import { deleteHeroAsync, setFormVisible } from '../features/newHeroSlice';
+import { clearNewComment, deleteHeroAsync, setFormVisible } from '../features/newHeroSlice';
 
 export const Heroes: React.FC = () => {
   const { hero, status } = useAppSelector(state => state.heroes);

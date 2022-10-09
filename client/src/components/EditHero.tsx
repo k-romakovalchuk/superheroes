@@ -80,8 +80,9 @@ export const EditHero: React.FC = () => {
 
     dispatch(setSubmit);
     setSubmitting(false);
-
     dispatch(clearNewComment);
+
+    
     dispatch(setFormVisible(false));
   };
 

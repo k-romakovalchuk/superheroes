@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { heroesAsync } from '../features/heroesSlice';
 import {
@@ -18,7 +18,7 @@ export const AddHero: React.FC = () => {
   const [images, setImages] = useState<FileList | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const { newHero: values, newHeroError: errors } = useAppSelector(state => state.newHero);
+  const { newHero: values, newHeroError: errors, hasError } = useAppSelector(state => state.newHero);
 
   const dispatch = useAppDispatch();
 
@@ -59,6 +59,10 @@ export const AddHero: React.FC = () => {
 
     dispatch(clearNewComment);
   };
+
+  useEffect(() => {
+    dispatch(dispatch(clearNewComment));
+  }, []);
 
   return (
     <section className="section" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -244,6 +248,9 @@ export const AddHero: React.FC = () => {
               Вийти
             </button>
           </div>
+          {hasError && (
+            <p className="help is-danger">Не вдалося додати героя</p>
+          )}
         </div>
       </form>
     </section>

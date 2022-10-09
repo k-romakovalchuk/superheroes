@@ -32,6 +32,7 @@ export interface InitialState {
   formVisible: boolean,
   submit: boolean,
   status: 'idle' | 'loading' | 'failed',
+  hasError: boolean
 }
 
 export const initialState: InitialState = {
@@ -53,6 +54,7 @@ export const initialState: InitialState = {
   formVisible: false,
   submit: false,
   status: 'idle',
+  hasError: false
 };
 
 type PayloadKey = 'nickname' | 'realName' | 'originDescription' | 'superpowers' | 'catchPhrase';
@@ -114,6 +116,15 @@ export const newHeroReducer = createSlice({
     clearNewComment: (state) => {
       state.newHero = initialState.newHero;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createHeroAsync.fulfilled, (state, { payload }) => {
+        state.hasError = false;
+      })
+      .addCase(createHeroAsync.rejected, (state) => {
+        state.hasError = true;
+      })
   },
 });
 
